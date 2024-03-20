@@ -34,21 +34,25 @@ export default function Home() {
       if (logs) {
         // get actions = 'chat', and group by chatId, and sort by timestamp
         const chats = logs.filter((log: any) => log.action === "chat");
-        const chatIds = chats.map((chat: any) => chat.chatId);
-        const uniqueChatIds = Array.from(new Set(chatIds));
+        if (chats && chats.length > 0) {
+          const chatIds = chats.map((chat: any) => chat.chatId);
+          const uniqueChatIds = Array.from(new Set(chatIds));
 
-        const chatHistories = uniqueChatIds.map((chatId: string) => {
-          const chatLogs = chats.filter((chat: any) => chat.chatId === chatId);
-          const messages = chatLogs.map((chat: any) => chat.messages).flat();
-          return {
-            userId: userId,
-            chatId: chatId,
-            messages: messages,
-            active: false,
-          };
-        });
+          const chatHistories = uniqueChatIds.map((chatId: string) => {
+            const chatLogs = chats.filter((chat: any) => chat.chatId === chatId);
+            const messages = chatLogs.map((chat: any) => chat.messages).flat();
+            return {
+              userId: userId,
+              chatId: chatId,
+              messages: messages,
+              active: false,
+            };
+          });
 
-        setChats(chatHistories);
+          setChats(chatHistories);
+        } else {
+          handleNewChat();
+        }
       }
     }
     setShowDialog(false);
@@ -141,16 +145,16 @@ export default function Home() {
       const headers = "userId,condition,action,chatId,content,messageId,role,message_content,source,target,timestamp\n";
       const csv = logs.flatMap((log: any) => {
         if (log.action === 'chat') {
-            return log.messages.map((message: any) => {
-                const content = message.content.replace(/"/g, '""').replace(/\n/g, ' ');
-                return `${userId},${condition},${log.action},${log.chatId},,${message.id},${message.role},"${content}",,,${message.createdAt.seconds}`;
-            });
+          return log.messages.map((message: any) => {
+            const content = message.content.replace(/"/g, '""').replace(/\n/g, ' ');
+            return `${userId},${condition},${log.action},${log.chatId},,${message.id},${message.role},"${content}",,,${message.createdAt.seconds}`;
+          });
         } else {
-            const content = log.content ? log.content.replace(/"/g, '""').replace(/\n/g, ' ') : '';
-            const timestamp_unix = new Date(log.timestamp).getTime() / 1000;
-            return `${userId},${condition},${log.action},${log.chatId || ''},${content},,,,${log.source || ''},${log.target || ''},${timestamp_unix}`;
+          const content = log.content ? log.content.replace(/"/g, '""').replace(/\n/g, ' ') : '';
+          const timestamp_unix = new Date(log.timestamp).getTime() / 1000;
+          return `${userId},${condition},${log.action},${log.chatId || ''},${content},,,,${log.source || ''},${log.target || ''},${timestamp_unix}`;
         }
-    }).join('\n');
+      }).join('\n');
 
       const blob = new Blob([headers + csv], { type: 'text/csv' });
       const url = URL.createObjectURL(blob);
