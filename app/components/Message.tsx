@@ -3,10 +3,33 @@ import { HiUser } from "react-icons/hi";
 import { TbCursorText } from "react-icons/tb";
 import { type Message } from "ai/react";
 
-import { Marked } from '@ts-stack/markdown';
+import { Marked, Renderer } from '@ts-stack/markdown';
 import hljs from 'highlight.js';
 
-Marked.setOptions({ highlight: (code, lang) => hljs.highlight('python', code).value });
+class MyRenderer extends Renderer {
+    override list(body: string, ordered?: boolean | undefined): string {
+        // add ol if ordered
+        return (ordered ? '<ol style="list-style: decimal; padding-left: 2rem; margin-top: 0; margin-bottom: 0;">' : '<ul style="list-style: disc; padding-left: 2rem; margin-top: 0; margin-bottom: 0;">') + body + (ordered ? '</ol>' : '</ul>');
+    }
+
+    override listitem(text: string): string {
+        return '<li>' + text + '</li>';
+    }
+}
+
+
+
+Marked.setOptions({
+    renderer: new MyRenderer,
+    gfm: true,
+    tables: true,
+    breaks: true,
+    pedantic: false,
+    sanitize: true,
+    smartLists: true,
+    smartypants: false,
+    highlight: (code, lang) => hljs.highlight('python', code).value
+});
 
 const ChatMessage = (props: any) => {
     const { message } = props as { message: Message };

@@ -29,7 +29,7 @@ export default function Chat({
 
     useEffect(() => {
         if (bottomOfChatRef.current) {
-            bottomOfChatRef.current.scrollIntoView({ behavior: "smooth" });
+            bottomOfChatRef.current.scrollIntoView({ behavior: "instant", block: "end" });
         }
         if (messages.length > 0) handleNewMessages(messages);
     }, [messages]);
@@ -87,7 +87,7 @@ export default function Chat({
                                     {currentChat?.messages.map((message, index)  => (
                                         <ChatMessage key={index} message={message} />
                                     ))}
-                                    <div className="w-full h-32 md:h-48 flex-shrink-0"></div>
+                                    <div className="w-full h-24 md:h-32 flex-shrink-0"></div>
                                     <div ref={bottomOfChatRef}></div>
                                 </div>
                             ) : null}
@@ -103,7 +103,7 @@ export default function Chat({
                         </label>
                         <button type="submit">Send</button>
                     </form> */}
-                    <form className="stretch mx-2 flex flex-row gap-3 last:mb-2 md:mx-4 md:last:mb-6 lg:mx-auto lg:max-w-2xl xl:max-w-3xl" onSubmit={handleSubmit}>
+                    <form className="stretch mx-2 flex flex-row gap-3 last:mb-1 md:mx-2 md:last:mb-4 lg:mx-auto lg:max-w-2xl xl:max-w-3xl" onSubmit={handleSubmit}>
                         <div className="relative flex flex-col h-full flex-1 items-stretch md:flex-col">
                             <div className="flex flex-col w-full py-2 flex-grow md:py-3 md:pl-4 relative border border-black/10 bg-white dark:border-gray-900/50 dark:text-white dark:bg-gray-700 rounded-md shadow-[0_0_10px_rgba(0,0,0,0.10)] dark:shadow-[0_0_15px_rgba(0,0,0,0.10)]">
                                 <textarea

@@ -244,7 +244,7 @@ export default function Home() {
           </form>
         </div>
       )}
-      <div className="dark hidden flex-shrink-0 bg-gray-900 md:flex md:w-[260px] md:flex-col">
+      <div className="dark hidden flex-shrink-0 bg-gray-900 md:flex md:w-[200px] md:flex-col">
         <div className="flex h-full min-h-0 flex-col ">
           <Sidebar
             onNewChat={handleNewChat}

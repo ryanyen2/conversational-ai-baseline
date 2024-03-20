@@ -59,7 +59,7 @@ const Sidebar = ({
 
     return (
         <div className="scrollbar-trigger flex h-full w-full flex-1 items-start border-white/20">
-            <nav className="flex h-full flex-1 flex-col space-y-1 p-2">
+            <nav className="flex h-full flex-1 flex-col space-y-1 p-2 w-full">
                 {/* <a className="flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm mb-1 flex-shrink-0 border border-white/20">
                     <FiSearch className="h-4 w-4" />
                     Find Chat
@@ -113,7 +113,7 @@ const Sidebar = ({
                     onClick={exportConversations}
                     className="flex py-3 px-3 items-center gap-3 rounded-md hover:bg-gray-500/10 transition-colors duration-200 text-white cursor-pointer text-sm">
                     <FaDownload className="h-4 w-4" />
-                    Download Conversations
+                    Download Chats
                 </a>
                 <a
                     onClick={exportLogs}

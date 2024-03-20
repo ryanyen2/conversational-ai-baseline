@@ -32,6 +32,12 @@ body {
   }
 }
 
+/* ol ul menu {
+  list-style: auto !important;
+  margin: auto !important;
+  padding: auto !important;
+} */
+
 
 pre {
   background: #282c34;
