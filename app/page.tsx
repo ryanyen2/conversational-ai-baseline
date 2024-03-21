@@ -33,7 +33,13 @@ export default function Home() {
       const logs = await getCollection(`${condition}-${userId}`);
       if (logs) {
         // get actions = 'chat', and group by chatId, and sort by timestamp
-        const chats = logs.filter((log: any) => log.action === "chat");
+        let chats = logs.filter((log: any) => log.action === "chat");
+        // sort by message.createdAt.seconds
+        chats = chats.sort((a: any, b: any) => {
+          const aTime = a.messages.length > 0 ? a.messages.slice(-1)[0].createdAt.seconds : 0;
+          const bTime = b.messages.length > 0 ? b.messages.slice(-1)[0].createdAt.seconds : 0;
+          return aTime - bTime;
+        });
         if (chats && chats.length > 0) {
           const chatIds = chats.map((chat: any) => chat.chatId);
           const uniqueChatIds = Array.from(new Set(chatIds));

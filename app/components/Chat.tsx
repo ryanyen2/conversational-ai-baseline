@@ -83,11 +83,11 @@ export default function Chat({
                     <div className="react-scroll-to-bottom--css-ikyem-79elbk h-full dark:bg-gray-800 overflow-y-auto">
                         <div className="react-scroll-to-bottom--css-ikyem-1n7m0yu">
                             {currentChat && currentChat.messages.length > 0 ? (
-                                <div className="flex flex-col items-center text-sm bg-gray-800">
+                                <div className="flex flex-col items-center text-sm bg-gray-800 dark:bg-gray-100">
                                     {currentChat?.messages.map((message, index)  => (
                                         <ChatMessage key={index} message={message} />
                                     ))}
-                                    <div className="w-full h-24 md:h-32 flex-shrink-0"></div>
+                                    <div className="w-full h-24 md:h-32 flex-shrink-0 bg-gray-50 dark:bg-gray-800"></div>
                                     <div ref={bottomOfChatRef}></div>
                                 </div>
                             ) : null}

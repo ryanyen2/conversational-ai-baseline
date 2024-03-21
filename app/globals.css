@@ -38,9 +38,11 @@ body {
   padding: auto !important;
 } */
 
+/* dark theme */
+
 
 pre {
-  background: #282c34;
+  background: #f0f0f0;
   padding: 1em;
   overflow-x: auto;
   border-radius: 0.5em;
