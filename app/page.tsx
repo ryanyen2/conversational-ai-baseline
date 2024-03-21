@@ -30,7 +30,7 @@ export default function Home() {
       //   timestamp: new Date().toISOString(),
       // });
 
-      const logs = await getCollection(`${condition}-${userId}`);
+      const logs = await getCollection(`stage1-${userId}`);
       if (logs) {
         // get actions = 'chat', and group by chatId, and sort by timestamp
         let chats = logs.filter((log: any) => log.action === "chat");
