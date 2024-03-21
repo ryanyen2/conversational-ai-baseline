@@ -30,8 +30,20 @@ export default function Home() {
       //   timestamp: new Date().toISOString(),
       // });
 
-      const logs = await getCollection(`stage1-${userId}`);
+      let logs = await getCollection(`${condition}-${userId}`);
       if (logs) {
+
+        if (condition == 'baseline') {
+          let baseline_logs = await getCollection(`baseline-${userId}`);
+          if (baseline_logs) {
+            logs = logs.concat(baseline_logs);
+
+            // remove duplicate logs
+            const uniqueLogs = Array.from(new Set(logs.map((log: any) => JSON.stringify(log))));
+            logs = uniqueLogs.map((log: any) => JSON.parse(log));
+          }
+        }
+
         // get actions = 'chat', and group by chatId, and sort by timestamp
         let chats = logs.filter((log: any) => log.action === "chat");
         // sort by message.createdAt.seconds
